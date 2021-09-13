@@ -2,9 +2,10 @@
 
 mapfile -t cvar_list < "${DICT_FILE:-cvar_dict.txt}"
 
+output_file_prefex="${2:-}"
 # resolve output_file before openning the file descriptor for errexit to be applied
 # probably because exec forks a child process: https://tldp.org/LDP/abs/html/internal.html#EXECREF
-output_file="$(basename $1).cvars"
+output_file="${output_file_prefex}$(basename $1).cvars"
 exec 3> $output_file
 
 for i in ${!cvar_list[@]}
